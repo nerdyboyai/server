@@ -38,7 +38,7 @@ GP_SERV_COMMAND_MISCDATA::JOB_POINTS::JOB_POINTS(const CCharEntity* PChar)
     const JobPoints_t* PJobPoints = PChar->PJobPoints->GetAllJobPoints();
 
     // Start at WAR (1) since NON (0) is unused
-    for (uint8 i = 1; i < MAX_PACKET_JOBTYPE; i++)
+    for (uint8 i = 1; i < MAX_JOBTYPE; i++)
     {
         packet.jobs[i].capacityPoints = PJobPoints[i].capacityPoints;
         packet.jobs[i].currentJp      = PJobPoints[i].currentJp;

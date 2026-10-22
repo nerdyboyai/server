@@ -40,6 +40,7 @@
 #include "data/enums/job.h"
 #include "data/enums/skill_type.h"
 #include "data/enums/skillchain_type.h"
+#include "job_limits.h"
 #include "party.h"
 #include "trait.h"
 
@@ -54,14 +55,6 @@ enum class DEATH_TYPE : uint8
     WS_MAGICAL  = 4,
 };
 DECLARE_FORMAT_AS_UNDERLYING(DEATH_TYPE);
-
-// Number of job slots, including NONE (0) and MON (23). Slot 24 is the first custom job.
-// Packet and DB layouts still carry 24 slots until the follow-up core PRs widen them.
-#define MAX_JOBTYPE 25
-
-// Job slots the retail wire formats can carry (0-23). Packet writers that index a fixed
-// 24-entry array must loop to this, not MAX_JOBTYPE, until the packet PR widens them.
-#define MAX_PACKET_JOBTYPE 24
 
 #define MAX_SKILLTYPE 64
 

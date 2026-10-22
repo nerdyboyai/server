@@ -123,7 +123,7 @@ void data_session::read_func()
                 const auto rset1 = db::preparedStmt("SELECT charid, charname, pos_zone, pos_prevzone, mjob,"
                                                     "race, face, head, body, hands, legs, feet, main, sub,"
                                                     "war, mnk, whm, blm, rdm, thf, pld, drk, bst, brd, rng,"
-                                                    "sam, nin, drg, smn, blu, cor, pup, dnc, sch, geo, run, "
+                                                    "sam, nin, drg, smn, blu, cor, pup, dnc, sch, geo, run, mon, ora, "
                                                     "gmlevel, nation, size, sjob, COALESCE(char_flags.`rename`, 0) AS `rename`, "
                                                     "EXISTS(SELECT 1 FROM char_vars "
                                                     "WHERE char_vars.charid = chars.charid "

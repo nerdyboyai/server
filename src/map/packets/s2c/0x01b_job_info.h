@@ -24,6 +24,7 @@
 #include "base.h"
 
 #include "data/enums/job.h"
+#include "job_limits.h"
 class CCharEntity;
 
 struct GP_MYROOM_DANCER
@@ -42,7 +43,7 @@ struct GP_MYROOM_DANCER
     int32_t  mpmax;
     uint8_t  sjobflg;
     uint8_t  unknown41[3];
-    uint8_t  job_lev2[0x18];
+    uint8_t  job_lev2[MAX_PACKET_JOBTYPE]; // widened from 0x18 (24) to 32 job slots
 };
 
 // https://github.com/atom0s/XiPackets/tree/main/world/server/0x001B
@@ -59,7 +60,7 @@ public:
         uint8_t          mastery_rank;             // PS2: (New; did not exist.)
         uint8_t          padding67;                // PS2: (New; did not exist.)
         uint32_t         job_mastery_flags;        // PS2: (New; did not exist.)
-        uint8_t          job_mastery_levels[0x18]; // PS2: (New; did not exist.)
+        uint8_t          job_mastery_levels[MAX_PACKET_JOBTYPE]; // PS2: (New; did not exist.) Widened from 0x18 (24) to 32 job slots
     };
 
     GP_SERV_COMMAND_JOB_INFO(CCharEntity* PChar);

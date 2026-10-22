@@ -23,6 +23,7 @@
 
 #include "0x063_miscdata.h"
 #include "base.h"
+#include "job_limits.h"
 
 class CCharEntity;
 
@@ -31,7 +32,7 @@ class CCharEntity;
 namespace GP_SERV_COMMAND_MISCDATA
 {
 
-// Type 0x05: Job Points (data: 152 bytes, total: 156 bytes)
+// Type 0x05: Job Points (data: 200 bytes, total: 204 bytes). Retail was 152 and 156 with 24 job entries.
 class JOB_POINTS final : public GP_SERV_PACKET<PacketS2C::GP_SERV_COMMAND_MISCDATA, JOB_POINTS>
 {
 public:
@@ -47,7 +48,7 @@ public:
             uint16_t capacityPoints; // Capacity points for this job
             uint16_t currentJp;      // Current unspent job points
             uint16_t totalJpSpent;   // Total job points spent
-        } jobs[24];                  // One entry per job (starting from index 1, job 0 unused)
+        } jobs[MAX_PACKET_JOBTYPE];  // One entry per job (starting from index 1, job 0 unused). Widened from 24 to 32
     };
 
     JOB_POINTS(const CCharEntity* PChar);
