@@ -19,7 +19,7 @@ DROP TABLE IF EXISTS `weapon_skills`;
 CREATE TABLE `weapon_skills` (
   `weaponskillid` tinyint(3) unsigned NOT NULL,
   `name` text NOT NULL,
-  `jobs` binary(22) NOT NULL,
+  `jobs` binary(24) NOT NULL,
   `type` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `skilllevel` smallint(3) unsigned NOT NULL DEFAULT '0',
   `element` tinyint(3) unsigned NOT NULL DEFAULT '0',

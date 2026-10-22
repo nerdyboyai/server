@@ -19,7 +19,7 @@ DROP TABLE IF EXISTS `spell_list`;
 CREATE TABLE `spell_list` (
   `spellid` smallint(3) unsigned NOT NULL,
   `name` varchar(24) NOT NULL,
-  `jobs` binary(22) NOT NULL,
+  `jobs` binary(24) NOT NULL,
   `group` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `family` smallint(4) unsigned NOT NULL DEFAULT '0',
   `element` tinyint(3) unsigned NOT NULL DEFAULT '0',

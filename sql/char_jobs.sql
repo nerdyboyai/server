@@ -37,5 +37,6 @@ CREATE TABLE IF NOT EXISTS `char_jobs` (
   `geo` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `run` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `mon` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `ora` tinyint(2) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`charid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci AVG_ROW_LENGTH=95;
