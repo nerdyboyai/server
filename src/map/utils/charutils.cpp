@@ -6012,8 +6012,9 @@ void SaveCharJob(const CCharEntity* PChar, const xi::Job job)
             fmtQuery = "UPDATE char_jobs SET unlocked = ?, mon = ? WHERE charid = ? LIMIT 1";
             break;
         default:
-            fmtQuery = "";
-            break;
+            // Custom job slots have no char_jobs column until the DB PR lands.
+            ShowWarningFmt("No char_jobs column for JOBTYPE {}, job level not saved.", static_cast<uint8>(job));
+            return;
     }
 
     db::preparedStmt(fmtQuery, PChar->jobs.unlocked, PChar->jobs.job[static_cast<uint8>(job)], PChar->id);
@@ -6103,8 +6104,9 @@ void SaveCharExp(const CCharEntity* PChar, const xi::Job job)
             query = "UPDATE char_exp SET mon = ?, merits = ?, limits = ? WHERE charid = ?";
             break;
         default:
-            query = "";
-            break;
+            // Custom job slots have no char_exp column until the DB PR lands.
+            ShowWarningFmt("No char_exp column for JOBTYPE {}, exp not saved.", static_cast<uint8>(job));
+            return;
     }
 
     db::preparedStmt(query, PChar->jobs.exp[static_cast<uint8>(job)], PChar->PMeritPoints->GetMeritPoints(), PChar->PMeritPoints->GetLimitPoints(), PChar->id);
