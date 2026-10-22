@@ -32,3 +32,4 @@ values:
   geo:  21
   run:  22
   mon:  23 # NOTE: MON is not a full job
+  ora:  24 # Custom job slot (working name: Oracle). Rename here only, never hard-code 24.
