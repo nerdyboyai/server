@@ -37,6 +37,8 @@ xi.data.job.dataTable =
     [xi.job.SCH ] = { true  },
     [xi.job.GEO ] = { true  },
     [xi.job.RUN ] = { true  },
+    [xi.job.MON ] = { false },
+    [xi.job.ORA ] = { false },
 }
 
 xi.data.job.isInnateCaster = function(target)

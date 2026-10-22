@@ -58,18 +58,25 @@ auto Dataset::decode(const std::string_view text) -> Records
     Grades grades{};
 
     const auto held = yaml::resolveKeys<xi::Job, wire::Attributes>(source.jobs);
-    for (auto id = static_cast<uint8>(xi::Job::WAR); id <= static_cast<uint8>(xi::Job::RUN); ++id)
+
+    const auto load = [&](const xi::Job job)
     {
-        const auto job   = static_cast<xi::Job>(id);
-        const auto name  = EnumTraits<xi::Job>::toName(job);
         const auto entry = held.find(job);
         if (entry == held.end())
         {
-            throw std::runtime_error(fmt::format("jobs is missing {}", name));
+            throw std::runtime_error(fmt::format("jobs is missing {}", EnumTraits<xi::Job>::toName(job)));
         }
 
-        grades.Jobs[id] = toGrades(entry->second);
+        grades.Jobs[static_cast<std::size_t>(job)] = toGrades(entry->second);
+    };
+
+    for (auto id = static_cast<uint8>(xi::Job::WAR); id <= static_cast<uint8>(xi::Job::RUN); ++id)
+    {
+        load(static_cast<xi::Job>(id));
     }
+
+    // Custom job slots hold grades too. MON stays out: it is not a full job.
+    load(xi::Job::ORA);
 
     const auto races = std::array{ &source.races.hume, &source.races.elvaan, &source.races.tarutaru, &source.races.mithra, &source.races.galka };
     for (std::size_t race = 0; race < kGrowthRaces; ++race)
