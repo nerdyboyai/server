@@ -571,7 +571,7 @@ auto LoadFromCharStyleSQL(CCharEntity* PChar) -> void
 
 auto LoadFromCharJobsSQL(CCharEntity* PChar) -> void
 {
-    const auto rset = db::preparedStmt("SELECT unlocked, genkai, war, mnk, whm, blm, rdm, thf, pld, drk, bst, brd, rng, sam, nin, drg, smn, blu, cor, pup, dnc, sch, geo, run, mon "
+    const auto rset = db::preparedStmt("SELECT unlocked, genkai, war, mnk, whm, blm, rdm, thf, pld, drk, bst, brd, rng, sam, nin, drg, smn, blu, cor, pup, dnc, sch, geo, run, mon, ora "
                                        "FROM char_jobs "
                                        "WHERE charid = ?",
                                        PChar->id);
@@ -603,6 +603,7 @@ auto LoadFromCharJobsSQL(CCharEntity* PChar) -> void
         PChar->jobs.job[static_cast<uint8>(xi::Job::GEO)] = rset->get<uint8>("geo");
         PChar->jobs.job[static_cast<uint8>(xi::Job::RUN)] = rset->get<uint8>("run");
         PChar->jobs.job[static_cast<uint8>(xi::Job::MON)] = rset->get<uint8>("mon");
+        PChar->jobs.job[static_cast<uint8>(xi::Job::ORA)] = rset->get<uint8>("ora");
     }
 }
 
@@ -611,7 +612,7 @@ auto LoadFromCharExpSQL(CCharEntity* PChar) -> CharExpRow
     uint8  meritPoints = 0;
     uint16 limitPoints = 0;
 
-    const auto rset = db::preparedStmt("SELECT mode, war, mnk, whm, blm, rdm, thf, pld, drk, bst, brd, rng, sam, nin, drg, smn, blu, cor, pup, dnc, sch, geo, run, mon, merits, limits "
+    const auto rset = db::preparedStmt("SELECT mode, war, mnk, whm, blm, rdm, thf, pld, drk, bst, brd, rng, sam, nin, drg, smn, blu, cor, pup, dnc, sch, geo, run, mon, ora, merits, limits "
                                        "FROM char_exp "
                                        "WHERE charid = ?",
                                        PChar->id);
@@ -642,6 +643,7 @@ auto LoadFromCharExpSQL(CCharEntity* PChar) -> CharExpRow
         PChar->jobs.exp[static_cast<uint8>(xi::Job::GEO)] = rset->get<uint16>("geo");
         PChar->jobs.exp[static_cast<uint8>(xi::Job::RUN)] = rset->get<uint16>("run");
         PChar->jobs.exp[static_cast<uint8>(xi::Job::MON)] = rset->get<uint16>("mon");
+        PChar->jobs.exp[static_cast<uint8>(xi::Job::ORA)] = rset->get<uint16>("ora");
 
         meritPoints = rset->get<uint8>("merits");
         limitPoints = rset->get<uint16>("limits");
@@ -6011,8 +6013,11 @@ void SaveCharJob(const CCharEntity* PChar, const xi::Job job)
         case xi::Job::MON:
             fmtQuery = "UPDATE char_jobs SET unlocked = ?, mon = ? WHERE charid = ? LIMIT 1";
             break;
+        case xi::Job::ORA:
+            fmtQuery = "UPDATE char_jobs SET unlocked = ?, ora = ? WHERE charid = ? LIMIT 1";
+            break;
         default:
-            // Custom job slots have no char_jobs column until the DB PR lands.
+            // No char_jobs column for this job slot.
             ShowWarningFmt("No char_jobs column for JOBTYPE {}, job level not saved.", static_cast<uint8>(job));
             return;
     }
@@ -6103,8 +6108,11 @@ void SaveCharExp(const CCharEntity* PChar, const xi::Job job)
         case xi::Job::MON:
             query = "UPDATE char_exp SET mon = ?, merits = ?, limits = ? WHERE charid = ?";
             break;
+        case xi::Job::ORA:
+            query = "UPDATE char_exp SET ora = ?, merits = ?, limits = ? WHERE charid = ?";
+            break;
         default:
-            // Custom job slots have no char_exp column until the DB PR lands.
+            // No char_exp column for this job slot.
             ShowWarningFmt("No char_exp column for JOBTYPE {}, exp not saved.", static_cast<uint8>(job));
             return;
     }

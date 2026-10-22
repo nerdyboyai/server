@@ -147,12 +147,13 @@ void LoadWeaponSkillsList()
 
         PWeaponSkill->setName(rset->get<std::string>("name"));
 
-        // Jobs are stored in DB as 22 entries.
-        // Index 0 is reserved for NON, index 23 for MON (both left as 0).
+        // Jobs are stored in DB as 24 entries, one byte per job starting at WAR (1).
+        // Index 0 is reserved for NON (left as 0). MON (23) is stored but always 0.
+        constexpr size_t               jobBlobSize = MAX_JOBTYPE - 1;
         std::array<uint8, MAX_JOBTYPE> jobs{};
-        std::array<uint8, 22>          tempJobs{};
+        std::array<uint8, jobBlobSize> tempJobs{};
         db::extractFromBlob(rset, "jobs", tempJobs);
-        std::memcpy(&jobs[1], tempJobs.data(), 22);
+        std::memcpy(&jobs[1], tempJobs.data(), jobBlobSize);
         PWeaponSkill->setJob(jobs);
 
         PWeaponSkill->setType(rset->get<uint8>("type"));
