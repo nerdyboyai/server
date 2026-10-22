@@ -28,6 +28,7 @@ grades:
     sch: {hp: e, mp:    d, str: f, dex: d, vit: e, agi: d, int: b, mnd: d, chr: c}
     geo: {hp: d, mp:    c, str: f, dex: d, vit: d, agi: e, int: b, mnd: b, chr: e}
     run: {hp: b, mp:    f, str: c, dex: d, vit: e, agi: b, int: d, mnd: d, chr: f}
+    ora: {hp: d, mp:    c, str: e, dex: d, vit: d, agi: d, int: c, mnd: b, chr: d} # Custom slot, placeholder grades until the job kit is designed
 
   races:
     hume:     {hp: d, mp: d, str: d, dex: d, vit: d, agi: d, int: d, mnd: d, chr: d}
