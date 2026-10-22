@@ -26,4 +26,6 @@ xi.jobName =
     [20] = { 'SCH', 'Scholar' },
     [21] = { 'GEO', 'Geomancer' },
     [22] = { 'RUN', 'Rune Fencer' },
+    [23] = { 'MON', 'Monstrosity' },
+    [24] = { 'ORA', 'Oracle' }, -- Custom slot, working name. Keep in step with data/enums/job.yaml
 }
