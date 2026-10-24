@@ -53,6 +53,16 @@ commandObj.onTrigger = function(player, jobId, level, master)
 
     -- change job and (optionally) level
     player:changeJob(jobId)
+
+    -- changeJob leaves the sub job alone. Clear it when it matches the new main job,
+    -- or when MON was left behind, so max MP and stats stay valid. MON itself keeps
+    -- the sub job the Monstrosity code sets.
+    local currentSubJob = player:getSubJob()
+    if jobId ~= xi.job.MON and (currentSubJob == jobId or currentSubJob == xi.job.MON) then
+        player:changesJob(xi.job.NONE)
+        player:setsLevel(0)
+    end
+
     if level ~= nil then
         player:setLevel(level)
     end

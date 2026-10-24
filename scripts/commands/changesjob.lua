@@ -37,6 +37,11 @@ commandObj.onTrigger = function(player, jobId, level)
         end
     end
 
+    if jobId == player:getMainJob() then
+        error(player, 'The sub job cannot be the same as the main job.')
+        return
+    end
+
     if jobId == xi.job.PUP then
         if player:getAutomatonName() == '' then
             player:setPetName(xi.petType.AUTOMATON, xi.petName.MK_IV)
